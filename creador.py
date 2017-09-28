@@ -1,8 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-#Metodo recolectar datos de puerto serie.
-
 filas = 3
 columnas = 4
 
