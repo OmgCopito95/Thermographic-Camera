@@ -5,22 +5,16 @@ HTML_HEAD = '''<head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Nav and address bar color -->
   <meta name="theme-color" content="#774292">
-
-  <link type="text/css" rel="stylesheet" href="static/bootstrap/css/css.css" media="all">
-  <link type="text/css" rel="stylesheet" href="static/bootstrap/css/css_002.css" media="all">
-  <link type="text/css" rel="stylesheet" href="static/bootstrap/css/footer.css" media="all">
-  <link type="text/css" rel="stylesheet" href="static/bootstrap/css/poncho.min.css" media="all">
-
-
-
-  <link type="text/css" rel="stylesheet" href="static/bootstrap/css/custom.css" media="all">
-
+  <link type="text/css" rel="stylesheet" href="../static/bootstrap/css/css.css" media="all">
+  <link type="text/css" rel="stylesheet" href="../static/bootstrap/css/css_002.css" media="all">
+  <link type="text/css" rel="stylesheet" href="../static/bootstrap/css/footer.css" media="all">
+  <link type="text/css" rel="stylesheet" href="../static/bootstrap/css/poncho.min.css" media="all">
+  <link type="text/css" rel="stylesheet" href="../static/bootstrap/css/custom.css" media="all">
   <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet"> 
-
   <title>Imagen | Cámara Termográfica</title>
 </head>'''
-HTML_IMAGEN = '<img src="imagen.png" alt="" />'
 
+HTML_IMAGEN = '<img src="../static/images/imagen.png" alt="" />'
 
 HTML_BODY = '''<section>
           <div class="container">
