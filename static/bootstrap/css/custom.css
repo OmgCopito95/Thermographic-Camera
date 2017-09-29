@@ -33,6 +33,19 @@ body {
     margin-top: 1.25rem;
     padding: 1.25rem;
 }
+.disabled{
+    cursor: not-allowed;
+}
+.badge {
+    background-color: #555555;
+    font-size: 14px;
+    padding: 6px 10px;
+    font-weight: 500;
+}
+.labelPanel{
+    font-family: 'Cabin', sans-serif;
+    font-size: 20;
+}
 #botonVioleta {
     background-color: #774292;
     border-color: #774292; 
@@ -42,6 +55,16 @@ body {
 #botonVioleta:hover {
     background-color: #9669ad !important;
     border-color: #9669ad;
+}
+#botonAbortar {
+    background-color: #E32636;
+    border-color: #E32636; 
+    box-shadow: none;
+    cursor: pointer;
+}
+#botonAbortar:hover{
+    background-color: #E52B50 !important;
+    border-color: #E52B50;
 }
 .source-link {
     background: #774292 none repeat scroll 0 0;
