@@ -15,6 +15,7 @@
 
   <link type="text/css" rel="stylesheet" href="../static/bootstrap/css/custom.css" media="all">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merienda+One">
+  <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet"> 
 
   <title>Cámara | Cámara Termográfica</title>
 </head>
@@ -56,7 +57,25 @@
           </div>
         </div>
         <section>
-          <!-- aca va el form-->
+          <div class="container">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+              <p><a id="botonPanel" class="btn btn-md btn-success" role="button">Iniciar</a></p>
+              <p><a id="botonVioleta" class="btn btn-md btn-success" href="camara.html" role="button">Pausar</a></p>
+              <p><a id="botonAbortar" class="btn btn-md btn-success" href="camara.html" role="button">Abortar</a></p>
+              <p><a id="botonVioleta" class="btn btn-md btn-success" href="camara.html" role="button" disabled style="cursor: not-allowed;">Volver a Casa</a></p>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+               <label class="labelPanel">Temperatura Mínima: &nbsp<span class="badge">70 °C</span></label>
+               <br><br>
+               <label class="labelPanel">Temperatura Máxima:&nbsp<span class="badge">700 °C</span></label>
+               <br><br>
+               <label class="labelPanel">Porcentaje Escaneado:&nbsp<span class="badge">15 %</span></label>
+               <br><br>
+               <label class="labelPanel">Tiempo Restante:&nbsp<span class="badge">70 seg</span></label>
+               <br><br>
+               <label class="labelPanel">Resolución:&nbsp<span class="badge">200 x 400</span></label>
+            </div>
+          </div>
         </section>
         <br>
       </div>
