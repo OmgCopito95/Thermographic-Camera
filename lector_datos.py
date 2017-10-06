@@ -1,3 +1,6 @@
+# Lee los datos del puerto serie que genera el sensor en el Arduino
+# Genera una matriz con los datos
+
 import serial
 import time
 ser = serial.Serial('COM4', 9600, timeout=0)
