@@ -18,12 +18,16 @@ def camara():
 	return render_template('camara.html')
 
 @app.route('/como-se-hace')
-def como-se-hace():
+def comoSeHace():
 	return render_template('como-se-hace.html')
 
 @app.route('/quien-soy')
-def quien-soy():
+def quienSoy():
 	return render_template('quien-soy.html')
+
+@app.route('/resultado')
+def resultado():
+	return render_template('datos.html')
 
 @app.route('/') # define la ruta con la que se ingresa en el explorador
 def index():
