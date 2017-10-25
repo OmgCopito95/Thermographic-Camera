@@ -57,15 +57,17 @@
           </div>
         </div>
         <section>
+        <form action="/camara" method="POST">
           <div class="container">
             <div class="col-xs-12 col-sm-6 col-md-5">
-              <p><a id="botonPanel" class="btn btn-md btn-success" heref="" role="button">Iniciar</a></p>
-              <p><a id="botonVioleta" class="btn btn-md btn-success" href="" role="button">Pausar</a></p>
-              <p><a id="botonAbortar" class="btn btn-md btn-success" href="" role="button">Abortar</a></p>
-              <p><a id="botonVioleta" class="btn btn-md btn-success" href="" role="button" disabled style="cursor: not-allowed;">Volver a Casa</a></p>
-              <p><a id="botonVioleta" class="btn btn-md btn-success" href="/resultado" role="button" disabled style="cursor: not-allowed;">Ver Resultado</a></p>
+              <p><a id="botonPanel" class="btn btn-md btn-success" name="iniciar" value="1" type="submit">Iniciar</a></p>
+              <p><a id="botonVioleta" class="btn btn-md btn-success" name="pausar" type="submit">Pausar</a></p>
+              <p><a id="botonAbortar" class="btn btn-md btn-success" name="abortar" value="" type="submit">Abortar</a></p>
+              <p><a id="botonVolverCasa"class="btn btn-md btn-success" role="button" name="volver"  href="#" disabled style="cursor: not-allowed;">Volver a Casa</a></p>
+              <p><a id="botonNaranja" class="btn btn-md btn-success" href="#" name="ver" role="button" disabled style="cursor: not-allowed;">Ver Resultado</a></p>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
+                
                <label class="labelPanel">Temperatura Mínima: &nbsp<span class="badge">70 °C</span></label>
                <br><br>
                <label class="labelPanel">Temperatura Máxima:&nbsp<span class="badge">700 °C</span></label>
@@ -76,6 +78,8 @@
                <br><br>
                <label class="labelPanel">Resolución:&nbsp<span class="badge">200 x 400</span></label>
             </div>
+                  </form>
+
           </div>
         </section>
         <br>
@@ -105,7 +109,7 @@
         </div>
       </div>
     </div>
-  </footer>  
+  </footer> 
 </body>
 </html>
 
