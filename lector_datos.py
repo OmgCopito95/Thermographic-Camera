@@ -29,17 +29,7 @@ def leer():
         if (dato != ""):
             #print ("entro if")
 
-            if (columnas < 178 and volver == False):
-                columnas=columnas+1
-            else:
-                if (columnas > 0 and volver == True):
-                    columnas = columnas - 1 #comienza a contar de zero de nuevo
-
-            if (columnas == 178):
-                volver = True;
-            else: 
-                if (columnas == 0):
-                    volver = False
+            
             try:
                 dato = ser.read(5)
                 print dato
@@ -54,10 +44,9 @@ def leer():
                     file.write("{0}\n".format(dato))
                 #matriz[filas][columnas] = float(dato)
             else:
-                if (dato == '#####' and filas < 34): # avanzo de fila
+                if (dato == '#####'): # avanzo de fila
                     with open("datos.txt", "a") as file:
                         file.write("#####")
-                    filas=filas+1
             #print('Data could not be read')
             time.sleep(0.035) #mismo tiempo con el cual lee el arduino
         else:
@@ -116,12 +105,38 @@ def verificar(): # verifica que los valores leidos del puerto serie tengan el fo
                         f.write("{0}".format(anteUltimoDato))
 
 def crearMatriz():
-    d = (34,179) #filas columnas
-    matriz = np.zeros(d) #inicializo la matriz toda en cero
+    #d = (34,179) #filas columnas
+   # matriz = np.zeros(d) #inicializo la matriz toda en cero
+    matriz = np.full((36,179),24.00)
+    
     volver = False
     columnas = -1
     filas = 0
-
-iniciar()
-leer()
-verificar()
+    with open("datosVerificados.txt","r") as f:
+        lineas = f.readlines()
+        #print "caca"+str(len(lineas))
+        w=0
+        for l in lineas:
+            w+=1
+            if (l!="#####\n"):
+                if (columnas < 178 and volver == False):
+                    columnas=columnas+1
+                else:
+                    if (columnas > 0 and volver == True):
+                        columnas = columnas - 1 #comienza a contar de zero de nuevo
+                if (columnas == 178):
+                    volver = True;
+                else: 
+                    if (columnas == 0):
+                        volver = False
+                #print w              
+                matriz[filas][columnas] = float(l[:-1])
+                #print(filas)
+                #matriz[filas][columnas] = format(l[:-2], '.2f')
+            else:
+                filas = filas +1
+    return matriz
+#iniciar()
+#leer()
+#verificar()
+#crearMatriz()
