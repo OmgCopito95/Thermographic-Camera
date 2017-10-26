@@ -2,7 +2,6 @@ from flask import Flask
 from flask import render_template
 from flask import request
 import creador
-import prueba
 
 
 app = Flask(__name__)
@@ -13,7 +12,7 @@ temp = [2,4,8,3],[6,1,7,1],[12,1,2,6.3]
 #    [12,1,2,1]
 
 def cargarImagen():
-    creador.crear_html_imagen(temp)
+    creador.crear_html_imagen()
 
 @app.route('/camara', methods = ['POST', 'GET'])
 def camara():
@@ -25,7 +24,11 @@ def camara():
 
 @app.route('/como-se-hace')
 def comoSeHace():
+    cargarImagen()
     return render_template('como-se-hace.html')
+
+def cargarImagen():
+    creador.crear_html_imagen()
 
 @app.route('/quien-soy')
 def quienSoy():
@@ -41,3 +44,4 @@ def index():
 
 if __name__ == "__main__":
     app.run (host = '127.0.0.1', port = 5000)
+    
