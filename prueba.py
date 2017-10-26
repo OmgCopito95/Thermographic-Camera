@@ -1,19 +1,16 @@
+import numpy as np
 import serial
-import time
+d = (5,2) #filas columnas
+matriz = np.zeros(d) #inicializo la matriz toda en cero
+columnas = 0
+filas = 0
 ser = serial.Serial('COM4', 9600, timeout=0)
 
-def comenzar():
-    while True:
-        try:
-            print ser.write("1")
-            time.sleep(9)
-        except ser.SerialTimeoutException:
-            print('Data could not send')
-
-def detener(): 
-    try:
-        ser.write("2")
-        time.sleep(9)
-    except ser.SerialTimeoutException:
-            print('Data could not send')    
-
+try: #Leo el siguiente dato
+    dato = ser.read(5)
+    print dato
+    matriz[0][0]=float(dato)
+except:
+    print('Data could not be read')
+if dato== "":
+    print "caca"
