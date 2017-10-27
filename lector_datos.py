@@ -107,34 +107,53 @@ def verificar(): # verifica que los valores leidos del puerto serie tengan el fo
 def crearMatriz():
     #d = (34,179) #filas columnas
    # matriz = np.zeros(d) #inicializo la matriz toda en cero
-    matriz = np.full((36,179),24.00)
+    matriz = np.full((36,179),20.00)
     
     volver = False
-    columnas = -1
+    columnas = 0
     filas = 0
     with open("datosVerificados.txt","r") as f:
         lineas = f.readlines()
         #print "caca"+str(len(lineas))
         w=0
         for l in lineas:
-            w+=1
-            if (l!="#####\n"):
+            #print l
+            #w+=1
+            #print(l[:-1])
+            if (l[:-1]!="#####"):               
+                #print l
+                matriz[filas][columnas] = float(l[:-1])
+
+                if (columnas == 178 and volver==False):
+                    volver = True
+                    columnas+=1
+
+                if (columnas == 0 and volver==True):
+                    volver = False
+                    columnas-=1
+
                 if (columnas < 178 and volver == False):
                     columnas=columnas+1
                 else:
                     if (columnas > 0 and volver == True):
                         columnas = columnas - 1 #comienza a contar de zero de nuevo
-                if (columnas == 178):
+                
+                '''if (columnas == 178):
                     volver = True;
                 else: 
                     if (columnas == 0):
-                        volver = False
-                #print w              
-                matriz[filas][columnas] = float(l[:-1])
+                        volver = False'''
+                #print columnas               
+                #matriz[filas][columnas] = float(l[:-1])
                 #print(filas)
                 #matriz[filas][columnas] = format(l[:-2], '.2f')
             else:
-                filas = filas +1
+                print "entro"
+                filas = filas + 1
+    #print filas
+    #print w
+    print matriz 
+    matriz[0][0]=20.00
     return matriz
 #iniciar()
 #leer()
