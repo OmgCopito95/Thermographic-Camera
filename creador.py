@@ -15,7 +15,7 @@ def crear_html_imagen(): # Crea el html con la imagen escaneada.
         file.write('<!DOCTYPE html>{0}<body style="background: none;">'.format(HTML_HEAD))
 
     #print m
-    #plt.imshow(temp, cmap='hot') #Create image with scale colors
+    #plt.imshow(m, cmap='hot') #Create image with scale colors
     plt.imshow(m, cmap='hot',interpolation='nearest', aspect='auto') #Create image with scale colors
     
     plt.colorbar() #Draw color bar
@@ -36,8 +36,6 @@ def crear_html_imagen(): # Crea el html con la imagen escaneada.
             #print m[i][j]
             with open("templates/datos.html", "a") as file:
                 file.write('<div class="tooltip" style=" border: none; position: absolute; width: 100px; height: 100px; left: {1}px; top:{0}px;"><span class="tooltiptext">{2}°C</span></div>\n'.format(i*30+58,j*30+62,m[i][j]))
-    with open("templates/datos.html", "a") as file:
-        print "caca"
-        file.write('{0}</body></html>'.format(HTML_IMAGEN))'''
+    with open("templates/datos.html", "a") as file:'''
     with open("templates/datos.html", "a") as file:
         file.write('{0}</body></html>'.format(HTML_IMAGEN))
