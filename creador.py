@@ -7,14 +7,12 @@ import lector_datos
 
 def crear_html_imagen(): # Crea el html con la imagen escaneada.
                          # Recibe como parámetro la matriz con los datos de temperatura escaneados.
-    #print "caca"
     filas = 36
     columnas = 179
     m = lector_datos.crearMatriz()
     with open("templates/datos.html", "w") as file:
         file.write('<!DOCTYPE html>{0}<body style="background: none;">'.format(HTML_HEAD))
 
-    #print m
     #plt.imshow(m, cmap='hot') #Create image with scale colors
     plt.imshow(m, cmap='hot',interpolation='nearest', aspect='auto') #Create image with scale colors
     
