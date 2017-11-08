@@ -22,7 +22,8 @@ def leer():
         print dato
     except:
         print('No se pudo leer el dato')
-    time.sleep(0.035)
+    #time.sleep(0.035)
+    time.sleep(0.1)
 
     while (dato != "deten" and dato != "pausa"):
         #print ("entro while")
@@ -48,14 +49,16 @@ def leer():
                     with open("datos.txt", "a") as file:
                         file.write("#####")
             #print('Data could not be read')
-            time.sleep(0.035) #mismo tiempo con el cual lee el arduino
+            #time.sleep(0.035) #mismo tiempo con el cual lee el arduino
+            time.sleep(0.1)
         else:
             try:
                 dato = ser.read(5)
                 print dato
             except:
                 print('No se pudo leer el dato')
-            time.sleep(0.035)
+            #time.sleep(0.035)
+            time.sleep(0.1)
 
     #Salio del while por lo tanto le llego un finalizo o un detener
     #print("salio del while")
@@ -120,7 +123,8 @@ def crearMatriz():
             #print l
             #w+=1
             #print(l[:-1])
-            if (l[:-1]!="#####"):               
+            #if (l[:-1]!="#####"): 
+            if ("#####" not in l[:-1]):              
                 #print l
                 matriz[filas][columnas] = float(l[:-1])
 
@@ -152,8 +156,8 @@ def crearMatriz():
                 filas = filas + 1
     #print filas
     #print w
-    print matriz 
-    matriz[0][0]=20.00
+    #print matriz 
+    #print matriz[21]
     return matriz
 #iniciar()
 #leer()
