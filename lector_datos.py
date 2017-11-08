@@ -26,11 +26,7 @@ def leer():
     time.sleep(0.1)
 
     while (dato != "deten" and dato != "pausa"):
-        #print ("entro while")
         if (dato != ""):
-            #print ("entro if")
-
-            
             try:
                 dato = ser.read(5)
                 print dato
