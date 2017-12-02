@@ -15,15 +15,16 @@ def iniciar():
 
 
 def leer():
-    ser = serial.Serial('COM4', 9600, timeout=0)
+    ser = serial.Serial('COM6', 9600, timeout=0)
     #Leo el primer dato
     try:
         dato = ser.read(5)
         print dato
     except:
         print('No se pudo leer el dato')
-    #time.sleep(0.035)
-    time.sleep(0.1)
+    time.sleep(0.035)
+    #time.sleep(0.1)
+    #time.sleep(0.5)
 
     while (dato != "deten" and dato != "pausa"):
         if (dato != ""):
@@ -45,16 +46,18 @@ def leer():
                     with open("datos.txt", "a") as file:
                         file.write("#####")
             #print('Data could not be read')
-            #time.sleep(0.035) #mismo tiempo con el cual lee el arduino
-            time.sleep(0.1)
+            time.sleep(0.035) #mismo tiempo con el cual lee el arduino
+            #time.sleep(0.1) #segundos
+            #time.sleep(0.5)
         else:
             try:
                 dato = ser.read(5)
                 print dato
             except:
                 print('No se pudo leer el dato')
-            #time.sleep(0.035)
-            time.sleep(0.1)
+            time.sleep(0.035)
+            #time.sleep(0.1)
+            #time.sleep(0.5)
 
     #Salio del while por lo tanto le llego un finalizo o un detener
     #print("salio del while")

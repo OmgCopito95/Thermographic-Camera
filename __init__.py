@@ -24,7 +24,7 @@ def camara():
 
 @app.route('/como-se-hace')
 def comoSeHace():
-    cargarImagen()
+    #cargarImagen()
     return render_template('como-se-hace.html')
 
 def cargarImagen():
