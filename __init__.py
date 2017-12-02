@@ -3,23 +3,13 @@ from flask import render_template
 from flask import request
 import creador
 
-
 app = Flask(__name__)
-
-temp = [2,4,8,3],[6,1,7,1],[12,1,2,6.3]
-#   [1.5,1,1,1]
-#    [6,1,2,1]
-#    [12,1,2,1]
 
 def cargarImagen():
     creador.crear_html_imagen()
 
 @app.route('/camara', methods = ['POST', 'GET'])
 def camara():
-    print "caca"
-    if request.form.get('iniciar') == "1":
-        print "caca2"
-       # prueba.comenzar();
     return render_template('camara.html')
 
 @app.route('/como-se-hace')
