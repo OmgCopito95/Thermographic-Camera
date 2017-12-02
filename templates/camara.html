@@ -1,7 +1,12 @@
 <html dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#" class="js" lang="es"><head>
   <link rel="profile" href="http://www.w3.org/1999/xhtml/vocab">
+
+  <!-- actualiza la pagina cada 5segundos-->
+  <script type="text/javascript"> setTimeout(function () {window.location.reload(1);}, 5*1000);</script>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <!-- Nav and address bar color -->
   <meta name="theme-color" content="#774292">
 
@@ -69,20 +74,20 @@
               <p><a id="botonNaranja" class="btn btn-md btn-success" href="#" name="ver" role="button" disabled style="cursor: not-allowed;">Ver Resultado</a></p>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
-                
-               <label class="labelPanel">Temperatura Mínima: &nbsp<span class="badge">70 °C</span></label>
+
+               <label class="labelPanel">Temperatura Mínima: &nbsp<span class="badge">{{tempmin}}</span></label>
                <br><br>
-               <label class="labelPanel">Temperatura Máxima:&nbsp<span class="badge">700 °C</span></label>
+               <label class="labelPanel">Temperatura Máxima: &nbsp<span class="badge">{{tempmax}}</span></label>
                <br><br>
-               <label class="labelPanel">Porcentaje Escaneado:&nbsp<span class="badge">15 %</span></label>
+               <label class="labelPanel">Porcentaje Escaneado: &nbsp<span class="badge">{{porcentaje}}</span></label>
                <br><br>
-               <label class="labelPanel">Tiempo Restante:&nbsp<span class="badge">70 seg</span></label>
+               <label class="labelPanel">Tiempo Restante: &nbsp<span class="badge">{{tiempo}}</span></label>
                <br><br>
                <label class="labelPanel">Resolución:&nbsp<span class="badge">200 x 400</span></label>
-            </div>
-                  </form>
 
-          </div>
+            </div>
+        </form>
+        </div>
         </section>
         <br>
       </div>
