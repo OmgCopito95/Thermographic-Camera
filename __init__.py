@@ -10,7 +10,9 @@ def cargarImagen():
 
 @app.route('/camara', methods = ['POST', 'GET'])
 def camara():
-    return render_template('camara.html')
+    tempmin,tempmax,porcentaje,tiempo = leer_datos()
+    return render_template('camara.html',tempmin = temperaturamin,tempmax=temperaturamax,tiempo=tiempo,porcentaje=porcentaje)
+    
 
 @app.route('/como-se-hace')
 def comoSeHace():
