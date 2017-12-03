@@ -13,20 +13,23 @@ def camara():
         lineas = file.readlines()
     if lineas:
         temperaturamin = lineas[0]
+        #print(temperaturamin)
         temperaturamax = lineas[1]
+        #print(temperaturamax)
         resultado = lineas[2]
+        #resultado = "fin"
+        #print(resultado)
     else:
         temperaturamin = 0
         temperaturamax = 0
     porcentaje = 100
-    tiempo = 5
+    tiempo = 0
 
     if resultado == "fin":
         ver_resultado = ''' href=/resultado '''
     else:
         ver_resultado = ''' style= cursor:not-allowed disabled'''
     return render_template('camara.html',resultado=ver_resultado,tempmin = temperaturamin,tempmax=temperaturamax,tiempo=tiempo,porcentaje=porcentaje)
-    #return render_template('camara.html')
 
 @app.route('/como-se-hace')
 def comoSeHace():
@@ -37,11 +40,15 @@ def cargarImagen():
 
 @app.route('/lee_datos')
 def lee_datos(): # Se utiliza para que ejecute la funcion leer datos
-
-    #lector.iniciar()
-    #lector.leer()
-    #lector.verificar()
-    cargarImagen()
+    
+    lector.iniciar()
+    lector.leer()
+    lector.verificar()
+    lector.min_max()
+    try:
+        cargarImagen()
+    except:
+        pass
     return render_template('lee_datos.html')
 
 @app.route('/quien-soy')
@@ -54,8 +61,8 @@ def resultado():
 
 @app.route('/') # define la ruta con la que se ingresa en el explorador
 def index():
-    with open("temperaturas.txt", "a") as f:
-        pass
+    with open("temperaturas.txt", "w") as file:   
+        file.write("")
     return render_template('index.html')
 
 if __name__ == "__main__":
