@@ -35,5 +35,4 @@ def crear_html_imagen(): # Crea el html con la imagen escaneada.
     with open("templates/datos.html", "a") as file:
         file.write('{0}</body></html>'.format(HTML_IMAGEN))
 
-    #with open("temperaturas.txt", "a") as f:
-    #    f.write("fin")
+    
