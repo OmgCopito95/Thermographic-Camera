@@ -27,12 +27,13 @@ def crear_html_imagen(): # Crea el html con la imagen escaneada.
     html_text = ""
     for i in range (0,filas):
         for j in range (0,columnas):
-            html_text += '<div class="tooltip" style=" border: none; position: absolute; width: 100px; height: 100px; left: {1}px; top:{0}px;"><span class="tooltiptext">{2}°C</span></div>\n'.format(i*30+58,j*30+62,m[i][j])
+            #<div class="tooltip" style=" border: none; position: absolute; width: 6px; height: 11px; left: 88px; top:66px;"><span class="tooltiptext">24.87°C</span></div>
+            html_text += '<div class="tooltip" style=" border: none; position: absolute; width: 6px; height: 11px; left: {1}px; top:{0}px;"><span class="tooltiptext">{2}°C</span></div>\n'.format(i*10.27+66,j*2.23+88,m[i][j])
     with open("templates/datos.html", "a") as file:
         file.write(html_text)
     
     with open("templates/datos.html", "a") as file:
         file.write('{0}</body></html>'.format(HTML_IMAGEN))
 
-    with open("temperaturas.txt", "a") as f:
-        f.write("fin")
+    #with open("temperaturas.txt", "a") as f:
+    #    f.write("fin")
