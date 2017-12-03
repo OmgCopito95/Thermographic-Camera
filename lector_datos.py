@@ -14,8 +14,8 @@ def iniciar():
     
 def leer():
     
-    min = 999
-    max = -999
+    minimo = 999
+    maximo = -999
 
     ser = serial.Serial('COM3', 9600, timeout=0)
     #Leo el primer dato
@@ -24,11 +24,12 @@ def leer():
         print dato
     except:
         print('No se pudo leer el dato')
-    time.sleep(0.035)
+    #time.sleep(0.035)
+    time.sleep(0.040)
     #time.sleep(0.1)
     #time.sleep(0.5)
 
-    while (dato != "deten" and dato != "pausa"):
+    while ("@" not in dato and dato != "pausa"):
         if (dato != ""):
             try:
                 dato = ser.read(5)
@@ -36,40 +37,35 @@ def leer():
             except:
                 print('No se pudo leer el dato')
 
-            if (dato != '#####' and dato !="deten" and dato!="pausa" and dato != ""):
-
-                #Pregunto si es menor al minimo o mayor al maximo
-                min_max(dato,min,max)
-
+            if (dato != '#####' and "@" not in dato and dato != ""):
+                #guarda el dato leido en el archivo de texto
                 with open("datos.txt", "a") as file:
                     file.write("{0}\n".format(dato))
             else:
                 if (dato == '#####'): # avanzo de fila
                     with open("datos.txt", "a") as file:
                         file.write("#####")
-            time.sleep(0.035) #mismo tiempo con el cual lee el arduino
+
+            #time.sleep(0.035) #mismo tiempo con el cual lee el arduino
+            time.sleep(0.040)
             #time.sleep(0.1) #segundos
             #time.sleep(0.5)
-        else:
+        else: #lee un espacio en blanco
             try:
                 dato = ser.read(5)
                 print dato
             except:
                 print('No se pudo leer el dato')
-            time.sleep(0.035)
+            #time.sleep(0.035)
+            time.sleep(0.040)
             #time.sleep(0.1)
             #time.sleep(0.5)
 
-    #Salio del while por lo tanto le llego un finalizo o un detener
-    if (dato == "deten"):
+    #Salio del while por lo tanto finalizo
+    if ("@" in dato):
         # Muestro la pagina con el resultado
         print ("finalizo el escaneo")
         ser.close()
-    else:
-        if (dato == "pausa"):
-            print ("Se detuvo el escaneo")
-            ser.close()
-            # Muestro un cartel diciendo que se detuvo el escaneo y que comience de nuevo
 
 def verificar(): # verifica que los valores leidos del puerto serie tengan el formato xx.xx
     with open("datos.txt", "r") as f:
@@ -87,7 +83,7 @@ def verificar(): # verifica que los valores leidos del puerto serie tengan el fo
                 with open("datosVerificados.txt","a") as f:
                     f.write("{0}".format(l))
             else:
-                int("caca")
+                int("error")
         except:
             #guardo el valor anterior para poder interpolar
             with open("datosVerificados.txt","a") as f:
@@ -132,17 +128,32 @@ def crearMatriz():
     return matriz
 
 
-def min_max(dato,min,max):
-    if(dato < min):
-        min = dato
-        with open("temperaturas.txt", "w") as file:
-            file.write("{0}\n{1}\n".format(min,max))
-    elif (dato > max):
-        max = dato
-        with open("temperaturas.txt", "w") as file:
-            file.write("{0}\n{1}\n".format(min,max))
+def min_max():
+    minimo = 999
+    maximo = -999
+    with open("datosVerificados.txt", "r") as f:
+        lineas = f.readlines()
+    #print("minimo" + str(minimo))
+    for l in lineas:
+        try:
+            l=float(l)
+            if(l < minimo):
+                minimo = l
+                print("minimo" + str(minimo))
+                with open("temperaturas.txt", "w") as f:
+                    f.write("{0}\n{1}\n".format(minimo,maximo))
+            elif (l > maximo):
+                maximo = l
+                with open("temperaturas.txt", "w") as f:
+                    f.write("{0}\n{1}\n".format(minimo,maximo))
+        except:
+            pass
+    with open("temperaturas.txt", "a") as f: #guardo un fin en el archivo de temperaturas para habilitar el boton ver Resultado
+        f.write("fin")
+    
 
 #iniciar()
 #leer()
 #verificar()
 #crearMatriz()
+#min_max()
