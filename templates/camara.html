@@ -1,8 +1,47 @@
 <html dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#" class="js" lang="es"><head>
   <link rel="profile" href="http://www.w3.org/1999/xhtml/vocab">
 
-  <!-- actualiza la pagina cada 5segundos-->
-  <script type="text/javascript"> setTimeout(function () {window.location.reload(1);}, 10*1000);</script>
+  <script>
+  // Set the date we're counting down to
+  var countDownDate = new Date().getTime();
+  countDownDate += 1000*60*5;
+  contador = false;
+
+  // Update the count down every 1 second
+  var x = setInterval(function() {
+
+      // Get todays date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now an the count down date
+      var distance = countDownDate - now;
+      var porcentaje = (100 - (distance * 100 / 300000)).toFixed(2);;
+      
+      // Time calculations for days, hours, minutes and seconds
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // If the count down is over, write some text 
+      if (distance <= 0) {
+        contador = false;
+        window.location.reload(1);
+      }
+      
+      // Output the result in an element with id="demo"
+      if (contador == true) {
+        document.getElementById("demo").innerHTML =  minutes + "m " + seconds + "s ";
+        document.getElementById("porcentaje").innerHTML =  porcentaje + "%";
+      }
+
+  }, 1000);
+
+  function start_contador(){
+    contador = true;
+    countDownDate = new Date().getTime();
+    countDownDate += 1000*60*5;
+  }
+
+  </script>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,17 +106,18 @@
         <form action="/camara" method="POST">
           <div class="container">
             <div class="col-xs-12 col-sm-6 col-md-5">
-              <p><a id="botonNaranja" class="btn btn-md btn-success" href="#" name="ver" role="button" disabled style="cursor: not-allowed;">Ver Resultado</a></p>
+              <p><a id="botonNaranja" class="btn btn-md btn-success" name="ver" role="button" {{resultado}}">Ver Resultado</a></p>
+              <p><a id="botonNaranja" class="btn btn-md btn-success" name="ver" role="button" onclick="window.open('/lee_datos'); start_contador()">Leer Datos</a></p>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
 
-               <label class="labelPanel">Temperatura Mínima: &nbsp<span class="badge">{{tempmin}}</span></label>
+               <label class="labelPanel">Temperatura Mínima: &nbsp<span class="badge">{{tempmin}} °C</span></label>
                <br><br>
-               <label class="labelPanel">Temperatura Máxima: &nbsp<span class="badge">{{tempmax}}</span></label>
+               <label class="labelPanel">Temperatura Máxima: &nbsp<span class="badge">{{tempmax}} °C</span></label>
                <br><br>
-               <label class="labelPanel">Porcentaje Escaneado: &nbsp<span class="badge">{{porcentaje}}</span></label>
+               <label class="labelPanel">Porcentaje Escaneado: &nbsp<span class="badge" id="porcentaje">{{porcentaje}} %</span></label>
                <br><br>
-               <label class="labelPanel">Tiempo Restante: &nbsp<span class="badge">{{tiempo}}</span></label>
+               <label class="labelPanel">Tiempo Restante: &nbsp<span class="badge" id="demo" >{{tiempo}} Segundos</span></label>
                <br><br>
                <label class="labelPanel">Resolución:&nbsp<span class="badge">200 x 400</span></label>
 
@@ -102,7 +142,7 @@
         <div class="col-md-3 col-sm-6">
           <div class="region region-footer3">
             <section id="block-menu-menu-footer-3" class="block block-menu clearfix">
-              <ul class="menu nav"><li class="first leaf"><a href="/">Inicio</a></li>                
+              <ul class="menu nav"><li class="first leaf"><a href="/">Inicio</a></li>
                 <li class="leaf"><a href="como-se-hace">Ayuda</a></li>
                 <li class="leaf"><a href="como-se-hace">Cómo se hace?</a></li>
               </ul>
@@ -114,4 +154,3 @@
   </footer> 
 </body>
 </html>
-
