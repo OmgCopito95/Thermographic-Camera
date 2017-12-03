@@ -6,9 +6,6 @@ import lector_datos as lector
 
 app = Flask(__name__)
 
-def cargarImagen():
-    creador.crear_html_imagen()
-
 @app.route('/camara', methods = ['POST', 'GET'])
 def camara():
     resultado=""
@@ -41,9 +38,9 @@ def cargarImagen():
 @app.route('/lee_datos')
 def lee_datos(): # Se utiliza para que ejecute la funcion leer datos
 
-    lector.iniciar()
-    lector.leer()
-    lector.verificar()
+    #lector.iniciar()
+    #lector.leer()
+    #lector.verificar()
     cargarImagen()
     return render_template('lee_datos.html')
 
