@@ -87,7 +87,7 @@
       <div id="block-system-main" class="block block-system clearfix">
         <div class="panel-pane pane-imagen-destacada">
           <div class="pane-content">
-            <section class="jumbotron" style="background-image: url(../static/images/);">    
+            <section class="jumbotron" style="background-image: url(../static/images/jumbotronCamara.jpg);">    
               <div class="jumbotron_body">
                 <div class="container">
                   <div class="row">
@@ -100,24 +100,40 @@
               <div class="overlay">
               </div>
             </section>
+            <br><br>
+            <div style="background-color: #9966CC; height: 100;">
+            <p style="color: white; font-family: 'Merienda One'; padding: 20px;"> <span style="font-size: 50px;">P</span>ara comenzar a escanear el objeto, por favor presione el botón Leer Datos y a continuación presione el botón de Start en el dispositivo.
+            </p>
+            </div>
+            <div style="background-color: #F2F3F4; height: 140;">
+            <p style="color: black; font-family: 'Merienda One'; padding: 20px;"> <span style="font-size: 50px;">U</span>na vez presionado el botón de Leer Datos, espere que finalice el escaneo y se habilitará el boton Ver Resultados. Dicho botón lo redirijirá a la imagen generada final.
+            </p>
+            </div>
+            <div style="background-color: #9966CC; height: 100;">
+            <p style="color: white; font-family: 'Merienda One'; padding: 20px;"> <span style="font-size: 50px;">A</span>l finalizar, se actualizarán los valores de temperatura leídas para mayor facilidad de lectura.
+            </p>
+            </div>
+          </div>
           </div>
         </div>
         <section>
+        <br><br><br>
         <form action="/camara" method="POST">
           <div class="container">
             <div class="col-xs-12 col-sm-6 col-md-5">
-              <p><a id="botonNaranja" class="btn btn-md btn-success" name="ver" role="button" {{resultado}}>Ver Resultado</a></p>
-              <p><a id="botonNaranja" class="btn btn-md btn-success" name="ver" role="button" onclick="window.open('/lee_datos'); start_contador()">Leer Datos</a></p>
+              <p><a class="btn btn-md btn-success" name="ver" role="button" {{resultado}}>Ver Resultado</a></p>
+              <p><a id="botonNaranja" class="btn btn-md btn-success" name="ver" data-toggle="tooltip" data-placement="right" title="Recuerde luego presionar Start" role="button" onclick="window.open('/lee_datos'); start_contador()">Leer Datos</a></p>
             </div>
+
             <div class="col-xs-12 col-sm-6 col-md-4">
 
-               <label class="labelPanel">Temperatura Mínima: &nbsp<span class="badge">{{tempmin}} °C</span></label>
+               <label class="labelPanel" >Temperatura Mínima: &nbsp<span class="badge">{{tempmin}} °C</span></label>
                <br><br>
                <label class="labelPanel">Temperatura Máxima: &nbsp<span class="badge">{{tempmax}} °C</span></label>
                <br><br>
                <label class="labelPanel">Porcentaje Escaneado: &nbsp<span class="badge" id="porcentaje">{{porcentaje}} %</span></label>
                <br><br>
-               <label class="labelPanel">Tiempo Restante: &nbsp<span class="badge" id="demo" >{{tiempo}} Segundos</span></label>
+               <label class="labelPanel">Tiempo Restante: &nbsp<span class="badge" id="demo">{{tiempo}} Segundos</span></label>
                <br><br>
                <label class="labelPanel">Resolución:&nbsp<span class="badge">200 x 400</span></label>
 
@@ -144,7 +160,7 @@
             <section id="block-menu-menu-footer-3" class="block block-menu clearfix">
               <ul class="menu nav"><li class="first leaf"><a href="/">Inicio</a></li>
                 <li class="leaf"><a href="como-se-hace">Ayuda</a></li>
-                <li class="leaf"><a href="como-se-hace">Cómo se hace?</a></li>
+                <li class="leaf"><a href="quien-soy">¿Quién lo realizó?</a></li>
               </ul>
             </section>
           </div>
