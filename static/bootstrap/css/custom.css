@@ -66,26 +66,7 @@ body {
     background-color: #9669ad !important;
     border-color: #9669ad;
 }
-#botonVolverCasa {
-    background-color: #774292;
-    border-color: #774292; 
-    box-shadow: none;
-    cursor: pointer;
-}
-#botonVolverCasa:hover {
-    background-color: #9669ad !important;
-    border-color: #9669ad;
-}
-#botonAbortar {
-    background-color: #E32636;
-    border-color: #E32636; 
-    box-shadow: none;
-    cursor: pointer;
-}
-#botonAbortar:hover{
-    background-color: #E52B50 !important;
-    border-color: #E52B50;
-}
+
 .source-link {
     background: #774292 none repeat scroll 0 0;
     color: #fff;
