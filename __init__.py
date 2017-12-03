@@ -27,7 +27,7 @@ def camara():
     if resultado == "fin":
         ver_resultado = ''' href=/resultado '''
     else:
-        ver_resultado = '''disabled style="cursor: not-allowed";'''
+        ver_resultado = ''' style= cursor:not-allowed disabled'''
     return render_template('camara.html',resultado=ver_resultado,tempmin = temperaturamin,tempmax=temperaturamax,tiempo=tiempo,porcentaje=porcentaje)
     #return render_template('camara.html')
 
@@ -40,6 +40,7 @@ def cargarImagen():
 
 @app.route('/lee_datos')
 def lee_datos(): # Se utiliza para que ejecute la funcion leer datos
+
     lector.iniciar()
     lector.leer()
     lector.verificar()
@@ -56,6 +57,8 @@ def resultado():
 
 @app.route('/') # define la ruta con la que se ingresa en el explorador
 def index():
+    with open("temperaturas.txt", "a") as f:
+        pass
     return render_template('index.html')
 
 if __name__ == "__main__":
