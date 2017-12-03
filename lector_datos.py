@@ -13,7 +13,11 @@ def iniciar():
         file.write("")
     
 def leer():
-    ser = serial.Serial('COM6', 9600, timeout=0)
+    
+    min = 999
+    max = -999
+
+    ser = serial.Serial('COM3', 9600, timeout=0)
     #Leo el primer dato
     try:
         dato = ser.read(5)
@@ -33,6 +37,10 @@ def leer():
                 print('No se pudo leer el dato')
 
             if (dato != '#####' and dato !="deten" and dato!="pausa" and dato != ""):
+
+                #Pregunto si es menor al minimo o mayor al maximo
+                min_max(dato,min,max)
+
                 with open("datos.txt", "a") as file:
                     file.write("{0}\n".format(dato))
             else:
@@ -122,6 +130,18 @@ def crearMatriz():
             else:
                 filas = filas + 1
     return matriz
+
+
+def min_max(dato,min,max):
+    if(dato < min):
+        min = dato
+        with open("temperaturas.txt", "w") as file:
+            file.write("{0}\n{1}\n".format(min,max))
+    elif (dato > max):
+        max = dato
+        with open("temperaturas.txt", "w") as file:
+            file.write("{0}\n{1}\n".format(min,max))
+
 #iniciar()
 #leer()
 #verificar()
