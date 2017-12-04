@@ -1,46 +1,40 @@
 <html dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#" class="js" lang="es"><head>
   <link rel="profile" href="http://www.w3.org/1999/xhtml/vocab">
 
-  <script>
+  <script> // Cuenta el tiempo de escaneo y calcula el porcentaje restante 
   // Set the date we're counting down to
+  var tiempo = 6; // Tiempo que tarda en procesarse todos los datos para que se habilite el boton VerResultado
   var countDownDate = new Date().getTime();
-  countDownDate += 1000*60*5;
+  countDownDate += 1000*60*tiempo;
   contador = false;
-
   // Update the count down every 1 second
   var x = setInterval(function() {
-
       // Get todays date and time
       var now = new Date().getTime();
-
       // Find the distance between now an the count down date
       var distance = countDownDate - now;
-      var porcentaje = (100 - (distance * 100 / 300000)).toFixed(2);;
-      
-      // Time calculations for days, hours, minutes and seconds
+      var ms = tiempo*60000/1 // Pasa de minutos a ms para calcular el porcentaje
+      var porcentaje = (100 - (distance * 100 / ms)).toFixed(2);;    // toFixed se queda con dos digitos despues de la coma   
+      // Time calculations for minutes and seconds
       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
       // If the count down is over, write some text 
       if (distance <= 0) {
         contador = false;
         window.location.reload(1);
       }
-      
       // Output the result in an element with id="demo"
       if (contador == true) {
         document.getElementById("demo").innerHTML =  minutes + "m " + seconds + "s ";
         document.getElementById("porcentaje").innerHTML =  porcentaje + "%";
       }
-
-  }, 1000);
+  }, 1000); // Cada cuánto tiempo cuenta
 
   function start_contador(){
     contador = true;
     countDownDate = new Date().getTime();
-    countDownDate += 1000*60*5;
+    countDownDate += 1000*60*tiempo; 
   }
-
   </script>
 
   <meta charset="utf-8">
@@ -106,7 +100,7 @@
             </p>
             </div>
             <div style="background-color: #F2F3F4; height: 140;">
-            <p style="color: black; font-family: 'Merienda One'; padding: 20px;"> <span style="font-size: 50px;">U</span>na vez presionado el botón de Leer Datos, espere que finalice el escaneo y se habilitará el boton Ver Resultados. Dicho botón lo redirijirá a la imagen generada final.
+            <p style="color: black; font-family: 'Merienda One'; padding: 20px;"> <span style="font-size: 50px;">U</span>na vez presionado el botón de Leer Datos, espere que finalice el escaneo y se habilitará el boton Ver Resultados. Dicho botón lo redirigirá a la imagen generada final.
             </p>
             </div>
             <div style="background-color: #9966CC; height: 100;">
