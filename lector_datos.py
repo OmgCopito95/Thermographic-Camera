@@ -24,8 +24,8 @@ def leer():
         print dato
     except:
         print('No se pudo leer el dato')
-    #time.sleep(0.035)
-    time.sleep(0.040)
+    time.sleep(0.035)
+    #time.sleep(0.040)
     #time.sleep(0.1)
     #time.sleep(0.5)
 
@@ -46,8 +46,8 @@ def leer():
                     with open("datos.txt", "a") as file:
                         file.write("#####")
 
-            #time.sleep(0.035) #mismo tiempo con el cual lee el arduino
-            time.sleep(0.040)
+            time.sleep(0.035) #mismo tiempo con el cual lee el arduino
+            #time.sleep(0.040)
             #time.sleep(0.1) #segundos
             #time.sleep(0.5)
         else: #lee un espacio en blanco
@@ -56,8 +56,8 @@ def leer():
                 print dato
             except:
                 print('No se pudo leer el dato')
-            #time.sleep(0.035)
-            time.sleep(0.040)
+            time.sleep(0.035)
+            #time.sleep(0.040)
             #time.sleep(0.1)
             #time.sleep(0.5)
 
