@@ -72,31 +72,38 @@ def verificar(): # verifica que los valores leidos del puerto serie tengan el fo
         lineas = f.readlines()
     for i in range(len(lineas)):
         l=lineas[i]
-        ultimoDato=""
+        ultimoDato="" # Dato anterior
         if i>1:
             with open("datosVerificados.txt","r") as g:
                 lVerif = g.readlines()
                 ultimoDato = lVerif[len(lVerif)-1]
                 anteUltimoDato = lVerif[len(lVerif)-2] 
         try:
+            # verifica que cumpla con el formato xx.xx siendo x un entero
             if (int(l[:2]) and l[2:3]=="." and int(l[3:5])):
                 with open("datosVerificados.txt","a") as f:
                     f.write("{0}".format(l))
             else:
                 int("error")
         except:
-            #guardo el valor anterior para poder interpolar
             with open("datosVerificados.txt","a") as f:
+                if (l[:1] == "."): # Si el primer digito es un . 
+                    num = l[3:5] + "." + l[1:3] # .1234 ---> 34.12
+                    f.write("{0}\n".format(num))
+                elif (l[4:5] == "."):
+                    num = l[2:4] + "." + l[:2]
+                    f.write("{0}\n".format(num))
                 if ("#" in lineas[i] and "#" not in ultimoDato):
                     f.write("{0}\n".format("#####"))
-                elif(i == 0):
+                elif(i == 0): # Primer dato
                     f.write("{0}\n".format("00.00"))
                 else:
                     if (len(lineas[i])<5 and lineas[i-1]!="#####"):
+                        # Si al dato le faltan caracteres, utiliza el anterior
                         f.write("{0}".format(ultimoDato))
-                    elif (lineas[i-1]!="#####"):
+                    elif (lineas[i-1]!="#####"): # Si no vino un separador, utiliza el dato anterior
                         f.write("{0}".format(ultimoDato))
-                    else:
+                    else: # sino utiliza el anteultimo leido
                         f.write("{0}".format(anteUltimoDato))
 
 def crearMatriz():
