@@ -1,3 +1,4 @@
+# Contiene en variables las partes del html que tendra la pagina del resultado
 # -*- coding: utf-8 -*-
 HTML_HEAD = '''<head>
   <link rel="profile" href="http://www.w3.org/1999/xhtml/vocab">

@@ -6,13 +6,13 @@ import time
 import numpy as np
 
 
-def iniciar():
-    with open("datos.txt", "w") as file:
+def iniciar(): # Genera los dos archivos de texto vacios
+    with open("datos.txt", "w") as file: # Todos los datos que lee del puerto serie, con o sin errores
         file.write("")
-    with open("datosVerificados.txt", "w") as file:
+    with open("datosVerificados.txt", "w") as file: # Todos los datos verificados (sin errores)
         file.write("")
     
-def leer():
+def leer(): # Lee los datos del puerto serie y los escribe en datos.txt
     
     minimo = 999
     maximo = -999
@@ -90,7 +90,7 @@ def verificar(): # verifica que los valores leidos del puerto serie tengan el fo
                 if (l[:1] == "."): # Si el primer digito es un . 
                     num = l[3:5] + "." + l[1:3] # .1234 ---> 34.12
                     f.write("{0}\n".format(num))
-                elif (l[4:5] == "."):
+                elif (l[4:5] == "."): # 1234. ----> 34.12
                     num = l[2:4] + "." + l[:2]
                     f.write("{0}\n".format(num))
                 if ("#" in lineas[i] and "#" not in ultimoDato):
@@ -106,7 +106,7 @@ def verificar(): # verifica que los valores leidos del puerto serie tengan el fo
                     else: # sino utiliza el anteultimo leido
                         f.write("{0}".format(anteUltimoDato))
 
-def crearMatriz():
+def crearMatriz(): # Crea la matriz en el mismo orden de escaneo a partir de los datos sin errores
     matriz = np.full((36,179),20.00) #inicializo la matriz toda en temperatura ambiente
     volver = False
     columnas = 0
@@ -135,7 +135,7 @@ def crearMatriz():
     return matriz
 
 
-def min_max():
+def min_max(): # Calcula las temperatura minima y maxima de los datos verificados para mostrarlos en la pagina
     minimo = 999
     maximo = -999
     with open("datosVerificados.txt", "r") as f:
@@ -158,6 +158,7 @@ def min_max():
     with open("temperaturas.txt", "a") as f: #guardo un fin en el archivo de temperaturas para habilitar el boton ver Resultado
         f.write("fin")
     
+# DEBUG
 
 #iniciar()
 #leer()
