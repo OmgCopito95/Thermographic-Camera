@@ -13,18 +13,15 @@ def camara():
         lineas = file.readlines()
     if lineas:
         temperaturamin = lineas[0]
-        #print(temperaturamin)
         temperaturamax = lineas[1]
-        #print(temperaturamax)
         resultado = lineas[2]
-        #resultado = "fin"
-        #print(resultado)
     else:
         temperaturamin = 0
         temperaturamax = 0
     porcentaje = 100
     tiempo = 0
 
+    # Si se termino de escanear y se genero el grafico entonces se habilita el boton de Ver Resultado
     if resultado == "fin":
         ver_resultado = ''' href=/resultado '''
     else:
@@ -39,8 +36,7 @@ def cargarImagen():
     creador.crear_html_imagen()
 
 @app.route('/lee_datos')
-def lee_datos(): # Se utiliza para que ejecute la funcion leer datos
-    
+def lee_datos(): # Se utiliza para que ejecute la funcion leer datos    
     lector.iniciar()
     lector.leer()
     lector.verificar()
@@ -57,11 +53,11 @@ def quienSoy():
 
 @app.route('/resultado')
 def resultado():
-    return render_template('datos.html')
+    return render_template('resultado.html')
 
-@app.route('/') # define la ruta con la que se ingresa en el explorador
+@app.route('/')
 def index():
-    with open("temperaturas.txt", "w") as file:   
+    with open("temperaturas.txt", "w") as file: #Genera el archivo temperaturas.txt vacio
         file.write("")
     return render_template('index.html')
 
