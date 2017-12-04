@@ -120,6 +120,7 @@ void escanearPositivo(){
     }
     //delay(500); // Pausa de 25ms
     delay(40);
+    //delay(45);
   }
 }
 void escanearNegativo(){
@@ -133,7 +134,8 @@ void escanearNegativo(){
       servoEjeX.write(i); // Desplaza al ángulo correspondiente
     }    
     //delay(500); // Pausa de 25ms
-    delay(40);
+    delay(45);
+    //delay(45);
   }
 }
 void escanear(){ // Futura mejora, implementar un thread para verificar el boton de detener.
