@@ -1,10 +1,46 @@
 <html dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#" class="js" lang="es"><head>
   <link rel="profile" href="http://www.w3.org/1999/xhtml/vocab">
+
+  <script> // Cuenta el tiempo de escaneo y calcula el porcentaje restante 
+  // Set the date we're counting down to
+  var tiempo = 6; // Tiempo que tarda en procesarse todos los datos para que se habilite el boton VerResultado
+  var countDownDate = new Date().getTime();
+  countDownDate += 1000*60*tiempo;
+  contador = false;
+  // Update the count down every 1 second
+  var x = setInterval(function() {
+      // Get todays date and time
+      var now = new Date().getTime();
+      // Find the distance between now an the count down date
+      var distance = countDownDate - now;
+      var ms = tiempo*60000/1 // Pasa de minutos a ms para calcular el porcentaje
+      var porcentaje = (100 - (distance * 100 / ms)).toFixed(2);;    // toFixed se queda con dos digitos despues de la coma   
+      // Time calculations for minutes and seconds
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      // If the count down is over, write some text 
+      if (distance <= 0) {
+        contador = false;
+        window.location.reload(1);
+      }
+      // Output the result in an element with id="demo"
+      if (contador == true) {
+        document.getElementById("demo").innerHTML =  minutes + "m " + seconds + "s ";
+        document.getElementById("porcentaje").innerHTML =  porcentaje + "%";
+      }
+  }, 1000); // Cada cuánto tiempo cuenta
+
+  function start_contador(){
+    contador = true;
+    countDownDate = new Date().getTime();
+    countDownDate += 1000*60*tiempo; 
+  }
+  </script>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Nav and address bar color -->
   <meta name="theme-color" content="#774292">
-
   <link type="text/css" rel="stylesheet" href="../static/bootstrap/css/font-awesome.css">
   <link type="text/css" rel="stylesheet" href="../static/bootstrap/css/css.css" media="all">
   <link type="text/css" rel="stylesheet" href="../static/bootstrap/css/css_002.css" media="all">
@@ -15,6 +51,7 @@
 
   <link type="text/css" rel="stylesheet" href="../static/bootstrap/css/custom.css" media="all">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merienda+One">
+  <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet"> 
 
   <title>Cámara | Cámara Termográfica</title>
 </head>
@@ -23,6 +60,8 @@
   <header>
     <nav class="navbar navbar-top navbar-default" role="navigation">
       <div class="container">
+      <a class="navbar-brand" href="/">
+      <img src="../static/images/logo CopitoSystem.png" width="168" height="50">
         <div>
           <div class="navbar-header">
             <a class="navbar-brand" href="index.html  ">
@@ -40,7 +79,7 @@
       <div id="block-system-main" class="block block-system clearfix">
         <div class="panel-pane pane-imagen-destacada">
           <div class="pane-content">
-            <section class="jumbotron" style="background-image: url(../static/images/);">    
+            <section class="jumbotron" style="background-image: url(../static/images/jumbotronCamara.jpg);">    
               <div class="jumbotron_body">
                 <div class="container">
                   <div class="row">
@@ -53,10 +92,46 @@
               <div class="overlay">
               </div>
             </section>
+            <br><br>
+            <div style="background-color: #9966CC; height: 100;">
+            <p style="color: white; font-family: 'Merienda One'; padding: 20px;"> <span style="font-size: 50px;">P</span>ara comenzar a escanear el objeto, por favor presione el botón Leer Datos y a continuación presione el botón de Start en el dispositivo.
+            </p>
+            </div>
+            <div style="background-color: #F2F3F4; height: 140;">
+            <p style="color: black; font-family: 'Merienda One'; padding: 20px;"> <span style="font-size: 50px;">U</span>na vez presionado el botón de Leer Datos, espere que finalice el escaneo y se habilitará el boton Ver Resultados. Dicho botón lo redirigirá a la imagen generada final.
+            </p>
+            </div>
+            <div style="background-color: #9966CC; height: 100;">
+            <p style="color: white; font-family: 'Merienda One'; padding: 20px;"> <span style="font-size: 50px;">A</span>l finalizar, se actualizarán los valores de temperatura leídas para mayor facilidad de lectura.
+            </p>
+            </div>
+          </div>
           </div>
         </div>
         <section>
-          <!-- aca va el form-->
+        <br><br><br>
+        <form action="/camara" method="POST">
+          <div class="container">
+            <div class="col-xs-12 col-sm-6 col-md-5">
+              <p><a class="btn btn-md btn-success" name="ver" role="button" {{resultado}}>Ver Resultado</a></p>
+              <p><a id="botonNaranja" class="btn btn-md btn-success" name="ver" data-toggle="tooltip" data-placement="right" title="Luego presione Start" role="button" onclick="window.open('/lee_datos'); start_contador()">Leer Datos</a></p>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-4">
+
+               <label class="labelPanel" >Temperatura Mínima: &nbsp<span class="badge">{{tempmin}} °C</span></label>
+               <br><br>
+               <label class="labelPanel">Temperatura Máxima: &nbsp<span class="badge">{{tempmax}} °C</span></label>
+               <br><br>
+               <label class="labelPanel">Porcentaje Escaneado: &nbsp<span class="badge" id="porcentaje">{{porcentaje}} %</span></label>
+               <br><br>
+               <label class="labelPanel">Tiempo Restante: &nbsp<span class="badge" id="demo">{{tiempo}} Segundos</span></label>
+               <br><br>
+               <label class="labelPanel">Resolución:&nbsp<span class="badge">200 x 400</span></label>
+
+            </div>
+        </form>
+        </div>
         </section>
         <br>
       </div>
@@ -75,17 +150,16 @@
         <div class="col-md-3 col-sm-6">
           <div class="region region-footer3">
             <section id="block-menu-menu-footer-3" class="block block-menu clearfix">
-              <ul class="menu nav"><li class="first leaf"><a href="index.html">Inicio</a></li>                
-                <li class="leaf"><a href="camara.html">Cámara</a></li>
-                <li class="leaf"><a href="">Ayuda</a></li>
-                <li class="leaf"><a href="como-se-hace.html">Cómo se hace?</a></li>
+              <ul class="menu nav"><li class="first leaf"><a href="/">Inicio</a></li>
+                <li class="leaf"><a href="como-se-hace">Ayuda</a></li>
+                <li class="leaf"><a href="quien-soy">¿Quién lo realizó?</a></li>
+                <li class="leaf"><a href="camara">Cámara</a>
               </ul>
             </section>
           </div>
         </div>
       </div>
     </div>
-  </footer>  
+  </footer> 
 </body>
 </html>
-

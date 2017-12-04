@@ -33,6 +33,29 @@ body {
     margin-top: 1.25rem;
     padding: 1.25rem;
 }
+.disabled{
+    cursor: not-allowed;
+}
+.badge {
+    background-color: #555555;
+    font-size: 14px;
+    padding: 6px 10px;
+    font-weight: 500;
+}
+.labelPanel{
+    font-family: 'Cabin', sans-serif;
+    font-size: 20;
+}
+#botonNaranja{
+    background-color: #FF7E00;
+    border-color: #FF7E00; 
+    box-shadow: none;
+    cursor: pointer;
+}
+#botonNaranja:hover{
+    background-color: #FF8B00 !important;
+    border-color: #FF8B00;
+}
 #botonVioleta {
     background-color: #774292;
     border-color: #774292; 
@@ -43,6 +66,7 @@ body {
     background-color: #9669ad !important;
     border-color: #9669ad;
 }
+
 .source-link {
     background: #774292 none repeat scroll 0 0;
     color: #fff;
@@ -97,3 +121,41 @@ a.panel:active{
     vertical-align: middle;
 }
    
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
