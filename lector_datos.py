@@ -17,7 +17,7 @@ def leer(): # Lee los datos del puerto serie y los escribe en datos.txt
     minimo = 999
     maximo = -999
 
-    ser = serial.Serial('COM4', 9600, timeout=0)
+    ser = serial.Serial('COM3', 9600, timeout=0)
     #Leo el primer dato
     try:
         dato = ser.read(5)
@@ -71,6 +71,7 @@ def leer(): # Lee los datos del puerto serie y los escribe en datos.txt
 
 def verificar(): # verifica que los valores leidos del puerto serie tengan el formato xx.xx
     verificadorInicio = False
+    pocosCaracteres = False
     with open("datos.txt", "r") as f:
         lineas = f.readlines()
     for i in range(len(lineas)):
@@ -106,19 +107,44 @@ def verificar(): # verifica que los valores leidos del puerto serie tengan el fo
                         f.write("{0}\n".format("#####"))
                     elif(i == skip): # Si el primer dato es erroneo guarda uno generico
                         f.write("{0}\n".format("20.00"))
-                    elif (l[:1] == "." and l[4:5] != "." and "#" not in l): # Si el primer digito es un . 
+                    elif (l[:1] == "." and l[4:5] != "." and "#" not in l and len(l) >= 5): # Si el primer digito es un . 
                         num = l[3:5] + "." + l[1:3] # .1234 ---> 34.12
                         f.write("{0}\n".format(num))
-                    elif (l[4:5] == "." and l[:1] != "." and "#" not in l): # 1234. ----> 34.12
+                    elif (l[4:5] == "." and l[:1] != "." and "#" not in l and len(l) >= 5): # 1234. ----> 34.12
                         num = l[2:4] + "." + l[:2]
                         f.write("{0}\n".format(num))
                     else:
-                        if ("#" not in ultimoDato):
-                            # Si al dato le faltan caracteres, utiliza el anterior verificado
-                            f.write("{0}".format(ultimoDato))
-                        else: # Sino utiliza el anteultimo verificado
-                            f.write("{0}".format(anteUltimoDato))
-                            #print (anteUltimoDato)
+                        if (1 < len(l) < 5 and pocosCaracteres == False):
+                            print(l+"caca")
+                            pocosCaracteres = True
+                            if ("#" not in ultimoDato):
+                                # Si al dato le faltan caracteres, utiliza el anterior verificado
+                                f.write("{0}".format(ultimoDato))
+                            else: # Sino utiliza el anteultimo verificado
+                                f.write("{0}".format(anteUltimoDato))
+                                #print (anteUltimoDato)
+                        elif (len(l) >= 5 or len(l) == 1):
+                            if ("#" not in ultimoDato):
+                                # Si al dato le faltan caracteres, utiliza el anterior verificado
+                                f.write("{0}".format(ultimoDato))
+                            else: # Sino utiliza el anteultimo verificado
+                                f.write("{0}".format(anteUltimoDato))
+                                #print (anteUltimoDato)
+                        else:
+                            print(l)
+                            pocosCaracteres = False
+    '''datos = ""
+    with open("datos.txt", "r") as f:
+        lineas = f.readlines()
+    for i in range(len(lineas)):
+        l=lineas[i]
+        ultimoDato="" # Dato anterior
+        datos += l
+        if (i%180 == 0):'''
+
+
+
+
 
 def crearMatriz(): # Crea la matriz en el mismo orden de escaneo a partir de los datos sin errores
     matriz = np.full((36,179),20.00) #inicializo la matriz toda en temperatura ambiente
