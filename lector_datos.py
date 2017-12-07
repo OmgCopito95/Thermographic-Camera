@@ -17,7 +17,7 @@ def leer(): # Lee los datos del puerto serie y los escribe en datos.txt
     minimo = 999
     maximo = -999
 
-    ser = serial.Serial('COM3', 9600, timeout=0)
+    ser = serial.Serial('COM4', 9600, timeout=0)
     #Leo el primer dato
     try:
         dato = ser.read(5)
@@ -70,47 +70,55 @@ def leer(): # Lee los datos del puerto serie y los escribe en datos.txt
         ser.close()
 
 def verificar(): # verifica que los valores leidos del puerto serie tengan el formato xx.xx
+    verificadorInicio = False
     with open("datos.txt", "r") as f:
         lineas = f.readlines()
     for i in range(len(lineas)):
         l=lineas[i]
         ultimoDato="" # Dato anterior
-        if i>1:
-            with open("datosVerificados.txt","r") as g:
-                lVerif = g.readlines()
-                ultimoDato = lVerif[len(lVerif)-1]
-                anteUltimoDato = lVerif[len(lVerif)-2] 
-        try:
-            # verifica que cumpla con el formato xx.xx siendo x un entero
-            if (int(l[:2]) and l[2:3]=="." and int(l[3:5])):
-                if (float(l) > 50.00):
-                    if ("#" not in ultimoDato):
-                        l = ultimoDato
-                    else:
-                        l=anteUltimoDato
-                with open("datosVerificados.txt","a") as f:
-                    f.write("{0}".format(l))
-            else:
-                int("error") # triggers except para evitar x.xxx
-        except:
-            with open("datosVerificados.txt","a") as f:                    
-                if ("#" in l and "#" not in ultimoDato):
-                    f.write("{0}\n".format("#####"))
-                elif(i == 0): # Si el primer dato es erroneo guarda uno generico
-                    f.write("{0}\n".format("20.00"))
-                elif (l[:1] == "." and l[4:5] != "." and "#" not in l): # Si el primer digito es un . 
-                    num = l[3:5] + "." + l[1:3] # .1234 ---> 34.12
-                    f.write("{0}\n".format(num))
-                elif (l[4:5] == "." and l[:1] != "." and "#" not in l): # 1234. ----> 34.12
-                    num = l[2:4] + "." + l[:2]
-                    f.write("{0}\n".format(num))
+        if (verificadorInicio == False and len(l) == 1): # Elimina los primeros datos vacios
+            pass
+        else:
+            if (verificadorInicio == False):
+                skip = i
+            verificadorInicio = True
+        if (verificadorInicio == True):
+            if i>skip+1:
+                with open("datosVerificados.txt","r") as g:
+                    lVerif = g.readlines()
+                    ultimoDato = lVerif[len(lVerif)-1]
+                    anteUltimoDato = lVerif[len(lVerif)-2] 
+            try:
+                # verifica que cumpla con el formato xx.xx siendo x un entero
+                if (int(l[:2]) and l[2:3]=="." and int(l[3:5])):
+                    if (float(l) > 50.00):
+                        if ("#" not in ultimoDato):
+                            l = ultimoDato
+                        else:
+                            l=anteUltimoDato
+                    with open("datosVerificados.txt","a") as f:
+                        f.write("{0}".format(l))
                 else:
-                    if ("#" not in ultimoDato):
-                        # Si al dato le faltan caracteres, utiliza el anterior verificado
-                        f.write("{0}".format(ultimoDato))
-                    else: # Sino utiliza el anteultimo verificado
-                        f.write("{0}".format(anteUltimoDato))
-                        #print (anteUltimoDato)
+                    int("error") # triggers except para evitar x.xxx
+            except:
+                with open("datosVerificados.txt","a") as f:                    
+                    if ("#" in l and "#" not in ultimoDato):
+                        f.write("{0}\n".format("#####"))
+                    elif(i == skip): # Si el primer dato es erroneo guarda uno generico
+                        f.write("{0}\n".format("20.00"))
+                    elif (l[:1] == "." and l[4:5] != "." and "#" not in l): # Si el primer digito es un . 
+                        num = l[3:5] + "." + l[1:3] # .1234 ---> 34.12
+                        f.write("{0}\n".format(num))
+                    elif (l[4:5] == "." and l[:1] != "." and "#" not in l): # 1234. ----> 34.12
+                        num = l[2:4] + "." + l[:2]
+                        f.write("{0}\n".format(num))
+                    else:
+                        if ("#" not in ultimoDato):
+                            # Si al dato le faltan caracteres, utiliza el anterior verificado
+                            f.write("{0}".format(ultimoDato))
+                        else: # Sino utiliza el anteultimo verificado
+                            f.write("{0}".format(anteUltimoDato))
+                            #print (anteUltimoDato)
 
 def crearMatriz(): # Crea la matriz en el mismo orden de escaneo a partir de los datos sin errores
     matriz = np.full((36,179),20.00) #inicializo la matriz toda en temperatura ambiente
@@ -152,7 +160,7 @@ def min_max(): # Calcula las temperatura minima y maxima de los datos verificado
             l=float(l)
             if(l < minimo):
                 minimo = l
-                print("minimo" + str(minimo))
+                #print("minimo" + str(minimo))
                 with open("temperaturas.txt", "w") as f:
                     f.write("{0}\n{1}\n".format(minimo,maximo))
             elif (l > maximo):
