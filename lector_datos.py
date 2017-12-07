@@ -17,7 +17,7 @@ def leer(): # Lee los datos del puerto serie y los escribe en datos.txt
     minimo = 999
     maximo = -999
 
-    ser = serial.Serial('COM3', 9600, timeout=0)
+    ser = serial.Serial('COM3', 9600, timeout=0) # Con timeout se podria seleccionar el COM3 o COM4 automaticamente
     #Leo el primer dato
     try:
         dato = ser.read(5)
@@ -70,6 +70,7 @@ def leer(): # Lee los datos del puerto serie y los escribe en datos.txt
         ser.close()
 
 def verificar(): # verifica que los valores leidos del puerto serie tengan el formato xx.xx
+    print ("Verificando Datos")
     verificadorInicio = False
     pocosCaracteres = False
     with open("datos.txt", "r") as f:
@@ -115,7 +116,6 @@ def verificar(): # verifica que los valores leidos del puerto serie tengan el fo
                         f.write("{0}\n".format(num))
                     else:
                         if (1 < len(l) < 5 and pocosCaracteres == False):
-                            print(l+"caca")
                             pocosCaracteres = True
                             if ("#" not in ultimoDato):
                                 # Si al dato le faltan caracteres, utiliza el anterior verificado
@@ -131,7 +131,6 @@ def verificar(): # verifica que los valores leidos del puerto serie tengan el fo
                                 f.write("{0}".format(anteUltimoDato))
                                 #print (anteUltimoDato)
                         else:
-                            print(l)
                             pocosCaracteres = False
     '''datos = ""
     with open("datos.txt", "r") as f:
@@ -147,6 +146,7 @@ def verificar(): # verifica que los valores leidos del puerto serie tengan el fo
 
 
 def crearMatriz(): # Crea la matriz en el mismo orden de escaneo a partir de los datos sin errores
+    print("Creando Matriz")
     matriz = np.full((36,179),20.00) #inicializo la matriz toda en temperatura ambiente
     volver = False
     columnas = 0
@@ -176,6 +176,7 @@ def crearMatriz(): # Crea la matriz en el mismo orden de escaneo a partir de los
 
 
 def min_max(): # Calcula las temperatura minima y maxima de los datos verificados para mostrarlos en la pagina
+    print ("Calculando minimo y maximo")
     minimo = 999
     maximo = -999
     with open("datosVerificados.txt", "r") as f:

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 from html_variables import * 
 import lector_datos
 
@@ -11,8 +12,10 @@ def crear_html_imagen(): # Crea el html con la imagen escaneada.
     m = lector_datos.crearMatriz()
     with open("templates/resultado.html", "w") as file:
         file.write('<!DOCTYPE html>{0}<body style="background: none;">'.format(HTML_HEAD))
+    print ("Generando Imagen")
     plt.imshow(m, cmap='hot',interpolation='nearest', aspect='auto') #Create image with scale colors
     plt.colorbar() #Draw color bar
+    os.remove("static/images/imagen.png") # Elimina la imagen anterior
     plt.savefig('static/images/imagen.png') # Sobreescribe las imagenes
 
     # En el archivo de texto crea divs con tooltips que indiquen la temperatura de ese punto
@@ -27,4 +30,3 @@ def crear_html_imagen(): # Crea el html con la imagen escaneada.
     with open("templates/resultado.html", "a") as file:
         file.write('{0}</body></html>'.format(HTML_IMAGEN))
 
-    
