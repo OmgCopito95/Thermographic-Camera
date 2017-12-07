@@ -29,7 +29,7 @@ def leer(): # Lee los datos del puerto serie y los escribe en datos.txt
     #time.sleep(0.1)
     #time.sleep(0.5)
 
-    while ("@" not in dato and dato != "pausa"):
+    while ("@" not in dato):
         if (dato != ""):
             try:
                 dato = ser.read(5)
@@ -52,6 +52,8 @@ def leer(): # Lee los datos del puerto serie y los escribe en datos.txt
             #time.sleep(0.5)
         else: #lee un espacio en blanco
             try:
+                with open("datos.txt", "a") as file:
+                    file.write("{0}\n".format(dato))
                 dato = ser.read(5)
                 print dato
             except:
@@ -81,30 +83,34 @@ def verificar(): # verifica que los valores leidos del puerto serie tengan el fo
         try:
             # verifica que cumpla con el formato xx.xx siendo x un entero
             if (int(l[:2]) and l[2:3]=="." and int(l[3:5])):
+                if (float(l) > 50.00):
+                    if ("#" not in ultimoDato):
+                        l = ultimoDato
+                    else:
+                        l=anteUltimoDato
                 with open("datosVerificados.txt","a") as f:
                     f.write("{0}".format(l))
             else:
-                int("error")
+                int("error") # triggers except para evitar x.xxx
         except:
-            with open("datosVerificados.txt","a") as f:
-                if (l[:1] == "."): # Si el primer digito es un . 
+            with open("datosVerificados.txt","a") as f:                    
+                if ("#" in l and "#" not in ultimoDato):
+                    f.write("{0}\n".format("#####"))
+                elif(i == 0): # Si el primer dato es erroneo guarda uno generico
+                    f.write("{0}\n".format("20.00"))
+                elif (l[:1] == "." and l[4:5] != "." and "#" not in l): # Si el primer digito es un . 
                     num = l[3:5] + "." + l[1:3] # .1234 ---> 34.12
                     f.write("{0}\n".format(num))
-                elif (l[4:5] == "."): # 1234. ----> 34.12
+                elif (l[4:5] == "." and l[:1] != "." and "#" not in l): # 1234. ----> 34.12
                     num = l[2:4] + "." + l[:2]
                     f.write("{0}\n".format(num))
-                if ("#" in lineas[i] and "#" not in ultimoDato):
-                    f.write("{0}\n".format("#####"))
-                elif(i == 0): # Primer dato
-                    f.write("{0}\n".format("00.00"))
                 else:
-                    if (len(lineas[i])<5 and lineas[i-1]!="#####"):
-                        # Si al dato le faltan caracteres, utiliza el anterior
+                    if ("#" not in ultimoDato):
+                        # Si al dato le faltan caracteres, utiliza el anterior verificado
                         f.write("{0}".format(ultimoDato))
-                    elif (lineas[i-1]!="#####"): # Si no vino un separador, utiliza el dato anterior
-                        f.write("{0}".format(ultimoDato))
-                    else: # sino utiliza el anteultimo leido
+                    else: # Sino utiliza el anteultimo verificado
                         f.write("{0}".format(anteUltimoDato))
+                        #print (anteUltimoDato)
 
 def crearMatriz(): # Crea la matriz en el mismo orden de escaneo a partir de los datos sin errores
     matriz = np.full((36,179),20.00) #inicializo la matriz toda en temperatura ambiente
